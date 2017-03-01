@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>PubPicker</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+   
+    <!--SOME APPLE SEETINGS-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+	<!--You need this although you do not need a physical reference as build will inject it in-->
+	<script type="text/javascript" src="scripts/cordova.js"></script>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Quicksand:300,400,700" rel="stylesheet">
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css">
+	<link rel="stylesheet" type="text/css" href="css/styles.css">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
+
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPWpzJPn5qAp3BCBUTkIErJCfR_ODBiWQ">
+	</script>
+
+	<script src="scripts/scripts.js"></script>
+</head>
+<body>
+
+	<div data-role="page" id="p1">
+		<h1>PubPicker</h1>
+		<div id="start-playing">Start Playing</div>
+	</div>
+
+	<div data-role="page" id="p2">
+
+		<div id="map">
+			
+		</div>
+
+		<div id="pub-title-map">The William Foster</div>
+
+		<div id="buttons">
+			<div class="action-button">Another</div>
+			<div class="action-button drink">Drink</div>
+			<div class="action-button">Info</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

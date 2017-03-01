@@ -1,0 +1,63 @@
+body {
+	margin: 0;
+	background: #404040;
+	font-family: 'Quicksand', sans-serif;
+	overflow: hidden;
+	/*font-family: 'Open Sans', sans-serif;*/
+}
+
+h1 {
+	color: #ffc61a;
+	font-size: 3.5em;
+	margin-top: 50%;
+	text-align: center;
+}
+
+#start-playing {
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 150px;
+	font-size: 2em;
+	padding: 20px 0px;
+	background: #ffc61a;
+}
+
+#map {
+	background: #808080;
+	width: 100%;
+	height: 350px;
+	position: relative;
+}
+
+#map-frame {
+	width: 100%;
+	height: 100%;
+}
+
+#pub-title-map {
+	background: #ffc61a;
+	padding: 10px;
+	font-size: 1.5em;
+	font-weight: 700;
+	color: #404040;
+}
+
+#buttons {
+	margin-top: 30px;
+	width: 100%;
+	height: 100px;
+	background: #808080;
+}
+
+.action-button {
+	float: left;
+	width: 33%;
+	text-align: center;
+	height: 100%;
+}
+
+.drink {
+	background: #ffc61a;
+}
