@@ -43,12 +43,24 @@ $(document).ready(function () {
 			url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + localStorage.lat + "," + localStorage.lng + "&radius=500&type=bar&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
 			success: function(data){
 				console.log(data);
-				$("#pub-title-map").text(data.results[7].name);
+				$("#pub-title-map").text(data.results[12].name);
+
+
 
 				map = new google.maps.Map(document.getElementById('map'), {
-					center: {lat: data.results[7].geometry.location.lat, lng: data.results[7].geometry.location.lng},
-					zoom: 17
+					center: {lat: data.results[12].geometry.location.lat, lng: data.results[12].geometry.location.lng},
+					zoom: 15
 				});
+
+				var myLatlng = new google.maps.LatLng(data.results[12].geometry.location.lat,data.results[12].geometry.location.lng);
+
+				var marker = new google.maps.Marker({
+					position: myLatlng,
+					title:"Hello World!"
+				});
+
+// To add the marker to the map, call setMap();
+marker.setMap(map);
 			}
 		});
     });
