@@ -61,3 +61,16 @@ h1 {
 .drink {
 	background: #ffc61a;
 }
+
+.pubs {
+	background: #ffc61a;
+	padding: 0.1em;
+	margin: 0.1em 0;
+	font-weight: 700;
+}
+
+#wrapper {
+	bottom: 0;
+	position: absolute;
+	width: 100%;
+}

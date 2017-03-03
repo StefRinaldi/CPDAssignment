@@ -43,13 +43,41 @@ $(document).ready(function () {
 			url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + localStorage.lat + "," + localStorage.lng + "&radius=500&type=bar&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
 			success: function(data){
 				console.log(data);
+				localStorage.setItem("placesData", JSON.stringify(data));
+				console.log(JSON.parse(localStorage.getItem("placesData")));
 				$("#pub-title-map").text(data.results[7].name);
 
 				map = new google.maps.Map(document.getElementById('map'), {
 					center: {lat: data.results[7].geometry.location.lat, lng: data.results[7].geometry.location.lng},
 					zoom: 17
 				});
+
+				$.each(data.results, function(key,value){
+
+					console.log(key+":"+value.name);
+					console.log(key+":"+value.place_id);
+
+					$('#pub' + key).text(value.name);
+					$('#pub' + key + "desc").text(value.rating);
+
+				});
 			}
 		});
+	});
+
+    $('.another').click(function(){
+
+    	$('#map').slideUp(200).slideDown(200);
+
+		var indexRnd = Math.floor(Math.random() * 20);
+
+		var stuff = JSON.parse(localStorage.getItem("placesData"));
+		$("#pub-title-map").text(stuff.results[indexRnd].name + " : " + stuff.results[indexRnd].rating);
+
+			map = new google.maps.Map(document.getElementById('map'), {
+				center: {lat: stuff.results[indexRnd].geometry.location.lat, lng: stuff.results[indexRnd].geometry.location.lng},
+				zoom: 17
+		});
+
     });
 });
