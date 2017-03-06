@@ -24,22 +24,11 @@ h1 {
 	background: #ffc61a;
 }
 
-#image {
-	background: #808080;
-	width: 100%;
-	height: 20em;
-	position: relative;
-}
-
 #map {
-	background: #808080;
+	background: #ffeeaa;
 	width: 100%;
 	height: 100%;
-	position: relative;
-}
-
-#pub-image {
-	height: 20em;
+	position: absolute;
 }
 
 #map-frame {
