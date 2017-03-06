@@ -24,10 +24,17 @@ h1 {
 	background: #ffc61a;
 }
 
-#map {
+#image {
 	background: #808080;
 	width: 100%;
 	height: 20em;
+	position: relative;
+}
+
+#map {
+	background: #808080;
+	width: 100%;
+	height: 100%;
 	position: relative;
 }
 
@@ -49,9 +56,14 @@ h1 {
 }
 
 #buttons {
-	margin-top: 30px;
 	width: 100%;
-	height: 5em;
+	height: 3.5em;
+	background: #808080;
+}
+
+#labels {
+	width: 100%;
+	height: 2em;
 	background: #808080;
 }
 
@@ -60,10 +72,27 @@ h1 {
 	width: 20%;
 	text-align: center;
 	height: 100%;
+	color: #d5d5d5;
+}
+
+.action-label {
+	font-family: 'Open Sans', sans-serif;
+	float: left;
+	width: 20%;
+	text-align: center;
+	height: 100%;
+	padding-top: 0.3em;
+	font-weight: 700;
+	background: #d5d5d5;
 }
 
 .drink {
 	background: #ffc61a;
+	color: #f9f9f9;
+}
+
+.action-label.drink {
+	background: #ad8408;
 }
 
 .pubs {
@@ -81,4 +110,5 @@ h1 {
 
 .action-button i {
 	font-size: 2.2em;
+	padding-top: 0.2em;
 }

@@ -47,10 +47,12 @@ $(document).ready(function () {
 				console.log(JSON.parse(localStorage.getItem("placesData")));
 				$("#pub-title-map").text(data.results[7].name);
 
-				// map = new google.maps.Map(document.getElementById('map'), {
-				// 	center: {lat: data.results[7].geometry.location.lat, lng: data.results[7].geometry.location.lng},
-				// 	zoom: 17
-				// });
+				$('#image').html("<img id='pub-image' src='https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + data.results[7].photos["0"].photo_reference + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0'/>");
+
+				map = new google.maps.Map(document.getElementById('map'), {
+					center: {lat: data.results[7].geometry.location.lat, lng: data.results[7].geometry.location.lng},
+					zoom: 17
+				});
 
 				$.each(data.results, function(key,value){
 					console.log(key+":"+value.name);
@@ -66,13 +68,17 @@ $(document).ready(function () {
 			animateTo:360
 		});
 
-    	$('#map').slideUp(200).slideDown(200);
+    	$('#image').slideUp(200).slideDown(200);
 
 		var indexRnd = Math.floor(Math.random() * 20);
 
 		var stuff = JSON.parse(localStorage.getItem("placesData"));
 
 		$("#pub-title-map").text(stuff.results[indexRnd].name);
-		$('#map').html("<img id='pub-image' src='https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + stuff.results[indexRnd].photos["0"].photo_reference + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0'/>");
+		$('#image').html("<img id='pub-image' src='https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + stuff.results[indexRnd].photos["0"].photo_reference + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0'/>");
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: stuff.results[indexRnd].geometry.location.lat, lng: stuff.results[indexRnd].geometry.location.lng},
+			zoom: 17
+		});
 	});
 });

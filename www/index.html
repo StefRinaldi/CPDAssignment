@@ -21,9 +21,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
 
-	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPWpzJPn5qAp3BCBUTkIErJCfR_ODBiWQ">
-	</script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPWpzJPn5qAp3BCBUTkIErJCfR_ODBiWQ"></script>
 
 	<script type="text/javascript" src="http://beneposto.pl/jqueryrotate/js/jQueryRotateCompressed.js"></script>
 	<script src="scripts/scripts.js"></script>
@@ -32,25 +30,39 @@
 
 	<div data-role="page" id="p1">
 		<h1>PubPicker</h1>
-		<div id="start-playing">Start Drinking <i class="material-icons">refresh</i></div>
+		<div id="start-playing">Start Drinking</div>
 	</div>
 
 	<div data-role="page" id="p2">
 
-		<div id="map">
+		<div id="image">
 			
 		</div>
 
 		<div id="pub-title-map">The William Foster</div>
 
+		<div id="map">
+			
+		</div>
+
 		<div id="wrapper">
+
 			<div id="buttons">
-				<div class="action-button another"><i class="material-icons">refresh</i></div>
+				<div class="action-button settings"><i class="material-icons">settings</i></div>
 				<div class="action-button another"><i class="material-icons">refresh</i></div>
 				<div class="action-button drink"><i class="material-icons">local_drink</i></div>
-				<div class="action-button">Info</div>
-				<div class="action-button">Info</div>
+				<div class="action-button route"><i class="material-icons">map</i></div>
+				<div class="action-button info"><i class="material-icons">info</i></div>
 			</div>
+
+			<div id="labels">
+				<div class="action-label settings">Settings</div>
+				<div class="action-label another">Refresh</div>
+				<div class="action-label drink">Drink</div>
+				<div class="action-label route">Route</div>
+				<div class="action-label info">Info</div>
+			</div>
+			
 		</div>
 
 	</div>
