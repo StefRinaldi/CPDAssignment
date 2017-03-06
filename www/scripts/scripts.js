@@ -81,7 +81,7 @@ $(document).ready(function () {
 			dataType: "json",
 			url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[7].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
 			success: function(data){
-				console.log(data);
+				localStorage.setItem("daplace", JSON.stringify(data));
 				$('#info').text(data.result.formatted_phone_number);
 			}
 		});
@@ -125,7 +125,7 @@ $(document).ready(function () {
 			dataType: "json",
 			url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[indexRnd].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
 			success: function(data){
-				console.log(data);
+				localStorage.setItem("daplace", JSON.stringify(data));
 				$('#info').text(data.result.formatted_phone_number);
 			}
 		});
@@ -134,5 +134,40 @@ $(document).ready(function () {
 
 	$('.info').click(function(){
 		$('#info').slideToggle();
+	});
+
+	$('.drink').click(function(){
+		$(':mobile-pagecontainer').pagecontainer('change', '#p3', {
+			transition: 'slidedown',
+			changeHash: false
+		}, 5000);
+
+		var stuff = JSON.parse(localStorage.getItem("daplace"));
+		
+		var panorama;
+
+        panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('street-view'),
+            {
+              position: {lat: stuff.result.geometry.location.lat, lng: stuff.result.geometry.location.lng},
+              pov: {heading: 165, pitch: 0},
+              zoom: 1
+            });
+      
+
+
+		console.log(stuff);
+
+		$('#pub-title-main').text(stuff.result.name);
+		$('#review-title').text(stuff.result.reviews["0"].author_name);
+		$('#review-content').text(stuff.result.reviews["0"].text);
+		$('#review-profile-img').html("<img src='https:" + stuff.result.reviews["0"].profile_photo_url + "'>");
+	});
+
+	$('#back').click(function(){
+		$(':mobile-pagecontainer').pagecontainer('change', '#p2', {
+			transition: 'slidedown',
+			changeHash: false
+		}, 5000);
 	});
 });
