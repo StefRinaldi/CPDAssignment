@@ -31,6 +31,14 @@ h1 {
 	position: absolute;
 }
 
+#info {
+	width: 100%;
+	height: 10em;
+	position: relative;
+	display: none;
+	background: #d5d5d5;
+}
+
 #map-frame {
 	width: 100%;
 	height: 100%;

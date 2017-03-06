@@ -9,6 +9,8 @@ $(document).ready(function () {
 		maximumAge: 0
 	};
 
+
+
 	function success(pos) {
 		var crd = pos.coords;
 
@@ -22,6 +24,8 @@ $(document).ready(function () {
 		console.log(`Latitude : ${crd.latitude}`);
 		console.log(`Longitude: ${crd.longitude}`);
 		console.log(`More or less ${crd.accuracy} meters.`);
+
+		
 	};
 
 	function error(err) {
@@ -40,23 +44,45 @@ $(document).ready(function () {
 			type: "GET",
 			crossDomain:true,
 			dataType: "json",
-			url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + localStorage.lat + "," + localStorage.lng + "&radius=500&type=bar&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
+			url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + localStorage.lat + "," + localStorage.lng + "&type=bar&rankby=distance&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
 			success: function(data){
 				console.log(data);
 				localStorage.setItem("placesData", JSON.stringify(data));
-				console.log(JSON.parse(localStorage.getItem("placesData")));
-				$("#pub-title-map").text(data.results[7].name);
+				console.log(JSON.parse(localStorage.placesData));
 
-				// $('#image').html("<img id='pub-image' src='https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + data.results[7].photos["0"].photo_reference + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0'/>");
+				$("#pub-title-map").text(data.results[7].name);
 
 				map = new google.maps.Map(document.getElementById('map'), {
 					center: {lat: data.results[7].geometry.location.lat, lng: data.results[7].geometry.location.lng},
 					zoom: 17
 				});
 
+				var myLatLng = {lat: data.results[7].geometry.location.lat, lng: data.results[7].geometry.location.lng};
+
+				var marker = new google.maps.Marker({
+					position: myLatLng,
+					animation: google.maps.Animation.DROP,
+					map: map
+				});
+
+				marker.setMap(map);
+
 				$.each(data.results, function(key,value){
 					console.log(key+":"+value.name);
 				});
+			}
+		});
+
+		var stuff = JSON.parse(localStorage.getItem("placesData"));
+
+		$.ajax({ 
+			type: "GET",
+			crossDomain:true,
+			dataType: "json",
+			url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[7].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
+			success: function(data){
+				console.log(data);
+				$('#info').text(data.result.formatted_phone_number);
 			}
 		});
 	});
@@ -75,7 +101,6 @@ $(document).ready(function () {
 		var stuff = JSON.parse(localStorage.getItem("placesData"));
 
 		$("#pub-title-map").text(stuff.results[indexRnd].name);
-		// $('#image').html("<img id='pub-image' src='https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=" + stuff.results[indexRnd].photos["0"].photo_reference + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0'/>");
 		
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: stuff.results[indexRnd].geometry.location.lat, lng: stuff.results[indexRnd].geometry.location.lng},
@@ -87,11 +112,27 @@ $(document).ready(function () {
 		var marker = new google.maps.Marker({
 			position: myLatLng,
 			animation: google.maps.Animation.DROP,
-			map: map,
-			title: 'Hello World!'
+			map: map
 		});
 
 		marker.setMap(map);
 
+		console.log(stuff.results[indexRnd].place_id);
+
+		$.ajax({ 
+			type: "GET",
+			crossDomain:true,
+			dataType: "json",
+			url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[indexRnd].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
+			success: function(data){
+				console.log(data);
+				$('#info').text(data.result.formatted_phone_number);
+			}
+		});
+
+	});
+
+	$('.info').click(function(){
+		$('#info').slideToggle();
 	});
 });
