@@ -149,8 +149,6 @@ $(document).ready(function () {
               pov: {heading: 165, pitch: 0},
               zoom: 1
             });
-      
-
 
 		console.log(stuff);
 
