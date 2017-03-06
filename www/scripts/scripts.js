@@ -1,15 +1,11 @@
 // use when  in browser
 $(document).ready(function () {
-	
-	console.log('ready');
 
 	var options = {
 		enableHighAccuracy: true,
 		timeout: 5000,
 		maximumAge: 0
 	};
-
-
 
 	function success(pos) {
 		var crd = pos.coords;
@@ -82,7 +78,7 @@ $(document).ready(function () {
 			url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[7].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
 			success: function(data){
 				localStorage.setItem("daplace", JSON.stringify(data));
-				$('#info').text(data.result.formatted_phone_number);
+				$('#web-link').attr("href", data.result.website);
 			}
 		});
 	});
@@ -126,7 +122,7 @@ $(document).ready(function () {
 			url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[indexRnd].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
 			success: function(data){
 				localStorage.setItem("daplace", JSON.stringify(data));
-				$('#info').text(data.result.formatted_phone_number);
+				$('#website-link').attr("href", data.result.website);
 			}
 		});
 
