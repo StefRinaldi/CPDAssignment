@@ -87,7 +87,7 @@ $(document).ready(function () {
 	navigator.geolocation.getCurrentPosition(success, error, options);
 	
 	$('#start-playing').click(function(){
-		$(':mobile-pagecontainer').pagecontainer('change', '#p2', {
+		$(':mobile-pagecontainer').pagecontainer('change', '#main-page', {
 			transition: 'slidedown',
 			changeHash: false
 		}, 5000);
@@ -124,6 +124,31 @@ $(document).ready(function () {
 				});
 			}
 		});
+
+		var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 7,
+          center: {lat: 41.85, lng: -87.65}
+        });
+
+        directionsDisplay.setMap(map);
+
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+
+		function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+	        directionsService.route({
+	          origin: "chicago, il",
+	          destination: "st louis, mo",
+	          travelMode: 'DRIVING'
+	        }, function(response, status) {
+	          if (status === 'OK') {
+	            maps.setDirections(response);
+	          } else {
+	            window.alert('Directions request failed due to ' + status);
+	          }
+	    	});
+      	}
 
 		var stuff = JSON.parse(localStorage.getItem("placesData"));
 
@@ -182,13 +207,15 @@ $(document).ready(function () {
 				$('#address').html(data.result.adr_address);
 				$("#address").html($("#address").html().replace(',',''));
 				$('#open').attr("open", data.result.opening_hours.open_now);
-				$('#website-link').attr("href", data.result.website);
+				$('#website-link').attr("href", "https://www.google.co.uk/maps/dir/" + localStorage.lat + "," + localStorage.lng + "/" + stuff.results[indexRnd].geometry.location.lat + "," + stuff.results[indexRnd].geometry.location.lng + "/");
 				$('#rating').text(data.result.rating);
 
 				if($('#open').attr("open")){
 					$('#open').text("Open");
+					$('#open').css({"background" : "#128c0e"});
 				} else {
 					$('#open').text("Closed");
+					$('#open').css({"background" : "#e01a23"});
 				}
 			}
 		});
@@ -204,7 +231,7 @@ $(document).ready(function () {
 	});
 
 	$('.drink').click(function(){
-		$(':mobile-pagecontainer').pagecontainer('change', '#p3', {
+		$(':mobile-pagecontainer').pagecontainer('change', '#pub-info-page', {
 			transition: 'slidedown',
 			changeHash: false
 		}, 5000);
@@ -230,7 +257,7 @@ $(document).ready(function () {
 	});
 
 	$('#back').click(function(){
-		$(':mobile-pagecontainer').pagecontainer('change', '#p2', {
+		$(':mobile-pagecontainer').pagecontainer('change', '#main-page', {
 			transition: 'slidedown',
 			changeHash: false
 		}, 5000);

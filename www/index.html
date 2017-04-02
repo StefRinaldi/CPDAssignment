@@ -28,12 +28,12 @@
 </head>
 <body>
 
-	<div data-role="page" id="p1">
+	<div data-role="page" id="start-page">
 		<h1>PubPicker</h1>
 		<div id="start-playing">Start New Crawl</div>
 	</div>
 
-	<div data-role="page" id="p2">
+	<div data-role="page" id="main-page">
 
 		<div id="map"></div>
 
@@ -41,49 +41,49 @@
 
 
 			<div id="info-button-wrap">
-				<i id="info-button" class="material-icons">info</i>
+
+				<div class="info-button">
+					<i id="info-button" class="material-icons">info</i>
+				</div>
+
+				<div id="open">
+					<span >Open</span>
+				</div>
+
+				<div id="star-box">
+					<i class="material-icons">grade</i>
+				</div>
+
+				<div id="rating-box">
+					<span id="rating">3.7</span>
+				</div>
+
 			</div>
 
 			<div id="pub-title-map">
-				The William Foster
-			</div>
-
-			<div id="mini-info">
-				Test
+				The William Foster</a>
 			</div>
 
 			<div id="info">
 				<div id="sect-1">
 					<div id="address"></div>
-					<div id="open"></div>
 				</div>
 				<div id="sect-2">
-					<a target="_blank" id="website-link"><i class="material-icons">web</i></a>
-					<div id="rating-box"><span id="rating">3.7</span>/5</div>
+					<a target="_blank" id="website-link"><i class="material-icons">web</i>
 				</div>
 			</div>
 
 			<div id="buttons">
-				<div class="action-button settings"><i class="material-icons">settings</i></div>
-				<div class="action-button another"><i class="material-icons">refresh</i></div>
+				<a href="https://www.google.co.uk/maps/dir/53.228806,-0.5493528/The+William+Foster,+Guildhall+Street,+Lincoln+LN1+1TT/"><div class="action-button settings"><i class="material-icons">settings</i></div></a>
 				<div class="action-button drink"><i class="material-icons">local_drink</i></div>
-				<div class="action-button route"><i class="material-icons">map</i></div>
-				<div class="action-button info"><i class="material-icons">info</i></div>
-			</div>
-
-			<div id="labels">
-				<div class="action-label settings">Settings</div>
-				<div class="action-label another">Refresh</div>
-				<div class="action-label drink">Drink</div>
-				<div class="action-label route">Route</div>
-				<div class="action-label info">Info</div>
+				<div class="action-button another"><i class="material-icons">refresh</i></div>
 			</div>
 			
 		</div>
 
 	</div>
 
-	<div data-role="page" id="p3">
+	<div data-role="page" id="pub-info-page">
 
 		<div id="pub-title-main"></div>
 	

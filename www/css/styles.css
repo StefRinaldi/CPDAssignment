@@ -57,6 +57,7 @@ h1 {
 	font-size: 1.5em;
 	font-weight: 700;
 	color: #404040;
+	clear: both;
 }
 
 #pub-title-main {
@@ -81,16 +82,16 @@ h1 {
 
 .action-button {
 	float: left;
-	width: 20%;
 	text-align: center;
 	height: 100%;
+	width: 25%;
 	color: #d5d5d5;
 }
 
 .action-label {
 	font-family: 'Open Sans', sans-serif;
 	float: left;
-	width: 20%;
+	width: 25%;
 	text-align: center;
 	height: 100%;
 	padding-top: 0.3em;
@@ -101,10 +102,12 @@ h1 {
 .drink {
 	background: #ffc61a;
 	color: #f9f9f9;
+	width: 50%;
 }
 
 .action-label.drink {
 	background: #ad8408;
+	width: 50%;
 }
 
 .pubs {
@@ -150,10 +153,6 @@ h1 {
 	float: left;
 }
 
-span#rating {
-	font-size: 2.5em;
-}
-
 #address {
 	font-size: 1.2em;
 	font-weight: 700;
@@ -167,21 +166,51 @@ span#rating {
     display:inline;
 }
 
-#open {
-	display: block;
-}
-
 #info-button-wrap {
 	font-size: 1.5em;
 	font-weight: 700;
 	color: #404040;
 	text-align: right;
+	height: 1.1em;
 }
 
-#info-button {
-	background: #ffc61a;
+#open {
+	background: #404040;
+	font-size: 0.8em;
+	color: #ffc61a;
+	float: right;
+	height: 100%;
+	line-height: 1.2;
 	padding: 0.3em;
-	font-size: 1.3em;
+}
 
+#rating-box {
+	background: #404040;
+	font-size: 0.8em;
+	color: #ffc61a;
+	float: right;
+	height: 100%;
+	padding: 0.3em;
+	padding-right: 0.1em;
+}
+
+#star-box {
+	background: #404040;
+	font-size: 0.8em;
+	color: #ffc61a;
+	float: right;
+	height: 100%;
+	padding: 0.3em;
+	padding-left: 0;
+}
+
+.info-button {
+	background: #ffc61a;
+	font-size: 0.8em;
 	color: #404040;
+	float: right;
+	height: 100%;
+	padding: 0.3em;
+	width: 2em;
+	text-align: center;
 }
