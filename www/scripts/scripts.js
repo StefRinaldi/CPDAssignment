@@ -178,14 +178,29 @@ $(document).ready(function () {
 			url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[indexRnd].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
 			success: function(data){
 				localStorage.setItem("daplace", JSON.stringify(data));
+				console.log(data.result);
+				$('#address').html(data.result.adr_address);
+				$("#address").html($("#address").html().replace(',',''));
+				$('#open').attr("open", data.result.opening_hours.open_now);
 				$('#website-link').attr("href", data.result.website);
+				$('#rating').text(data.result.rating);
+
+				if($('#open').attr("open")){
+					$('#open').text("Open");
+				} else {
+					$('#open').text("Closed");
+				}
 			}
 		});
 
 	});
 
-	$('.info').click(function(){
+	$('#info-button').click(function(){
 		$('#info').slideToggle();
+
+		var text = $('#info-button').text();
+    	$('#info-button').text(
+        	text == "info" ? "cancel" : "info");
 	});
 
 	$('.drink').click(function(){
@@ -211,7 +226,7 @@ $(document).ready(function () {
 		$('#pub-title-main').text(stuff.result.name);
 		$('#review-title').text(stuff.result.reviews["0"].author_name);
 		$('#review-content').text(stuff.result.reviews["0"].text);
-		$('#review-profile-img').html("<img src='https:" + stuff.result.reviews["0"].profile_photo_url + "'>");
+		$('#review-profile-img').html("<img src='" + stuff.result.reviews["0"].profile_photo_url + "'>");
 	});
 
 	$('#back').click(function(){

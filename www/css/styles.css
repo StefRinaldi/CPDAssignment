@@ -31,9 +31,16 @@ h1 {
 	position: absolute;
 }
 
+#mini-info {
+	width: 100%;
+	height: 3em;
+	position: relative;
+	background: #d5d5d5;
+}
+
 #info {
 	width: 100%;
-	height: 10em;
+	height: 20em;
 	position: relative;
 	display: none;
 	background: #d5d5d5;
@@ -109,7 +116,7 @@ h1 {
 
 .footer {
 	bottom: 0;
-	position: absolute;
+	position: fixed;
 	width: 100%;
 }
 
@@ -133,4 +140,48 @@ h1 {
 	background: #ffeeaa;
 }
 
+#sect-1 {
+	width: 60%;
+	float: left;
+}
 
+#sect-2 {
+	width: 40%;
+	float: left;
+}
+
+span#rating {
+	font-size: 2.5em;
+}
+
+#address {
+	font-size: 1.2em;
+	font-weight: 700;
+	float: left;
+	padding: 0.8em;
+}
+
+#address span {
+	float: left;
+    clear: left;
+    display:inline;
+}
+
+#open {
+	display: block;
+}
+
+#info-button-wrap {
+	font-size: 1.5em;
+	font-weight: 700;
+	color: #404040;
+	text-align: right;
+}
+
+#info-button {
+	background: #ffc61a;
+	padding: 0.3em;
+	font-size: 1.3em;
+
+	color: #404040;
+}
