@@ -58,6 +58,10 @@ h1 {
 	font-weight: 700;
 	color: #404040;
 	clear: both;
+	border-bottom: 1px solid #BD9313;
+-webkit-box-shadow: 0px 0px 30px 3px rgba(0,0,0,0.5);
+-moz-box-shadow: 0px 0px 30px 3px rgba(0,0,0,0.5);
+box-shadow: 0px 0px 30px 3px rgba(0,0,0,0.5);
 }
 
 #pub-title-main {
@@ -69,12 +73,14 @@ h1 {
 }
 
 #buttons {
+
 	width: 100%;
 	height: 3.5em;
 	background: #808080;
 }
 
 #labels {
+
 	width: 100%;
 	height: 2em;
 	background: #808080;
@@ -100,7 +106,13 @@ h1 {
 }
 
 .drink {
-	background: #ffc61a;
+  background: linear-gradient(top,  #FFC61A,  #BD9313);
+  background: -ms-linear-gradient(top,  #FFC61A,  #BD9313);
+  background: -webkit-gradient(linear, left top, left bottom, from(#FFC61A), to(#BD9313));
+  background: -moz-linear-gradient(top,  #FFC61A,  #BD9313);
+-webkit-box-shadow: 0px 17px 37px 9px rgba(0,0,0,0.30);
+-moz-box-shadow: 0px 17px 37px 9px rgba(0,0,0,0.30);
+box-shadow: 0px 17px 37px 9px rgba(0,0,0,0.30);
 	color: #f9f9f9;
 	width: 50%;
 }
@@ -213,4 +225,28 @@ h1 {
 	padding: 0.3em;
 	width: 2em;
 	text-align: center;
+}
+
+#on-your-way {
+	margin-top: 2em;
+	color: #ffffff;
+	text-align: center;
+	font-weight: 500;
+	font-size: 1em;
+}
+
+#on-your-way span {
+	color: #ffffff;
+	text-align: center;
+	display: block;
+	font-weight: 700;
+	font-size: 2em;
+}
+
+#directions-button i {
+	color: #ffffff;
+	width: 2em;
+	height: 2em;
+	position: relative;
+	font-size: 5em;
 }

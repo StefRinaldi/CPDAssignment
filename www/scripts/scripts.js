@@ -92,76 +92,61 @@ $(document).ready(function () {
 			changeHash: false
 		}, 5000);
 
-		$.ajax({ 
-			type: "GET",
-			crossDomain:true,
-			dataType: "json",
-			url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + localStorage.lat + "," + localStorage.lng + "&type=bar&rankby=distance&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
-			success: function(data){
-				console.log(data);
-				localStorage.setItem("placesData", JSON.stringify(data));
-				console.log(JSON.parse(localStorage.placesData));
-
-				$("#pub-title-map").text(data.results[7].name);
-
-				map = new google.maps.Map(document.getElementById('map'), {
-					center: {lat: data.results[7].geometry.location.lat, lng: data.results[7].geometry.location.lng},
-					zoom: 17
-				});
-
-				var myLatLng = {lat: data.results[7].geometry.location.lat, lng: data.results[7].geometry.location.lng};
-
-				var marker = new google.maps.Marker({
-					position: myLatLng,
-					animation: google.maps.Animation.DROP,
-					map: map
-				});
-
-				marker.setMap(map);
-
-				$.each(data.results, function(key,value){
-					console.log(key+":"+value.name);
-				});
-			}
-		});
-
-		var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 7,
-          center: {lat: 41.85, lng: -87.65}
-        });
-
-        directionsDisplay.setMap(map);
-
-        calculateAndDisplayRoute(directionsService, directionsDisplay);
-
-		function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-	        directionsService.route({
-	          origin: "chicago, il",
-	          destination: "st louis, mo",
-	          travelMode: 'DRIVING'
-	        }, function(response, status) {
-	          if (status === 'OK') {
-	            maps.setDirections(response);
-	          } else {
-	            window.alert('Directions request failed due to ' + status);
-	          }
-	    	});
-      	}
+		var indexRnd = Math.floor(Math.random() * 20);
 
 		var stuff = JSON.parse(localStorage.getItem("placesData"));
 
+		$("#pub-title-map").text(stuff.results[indexRnd].name);
+		
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: stuff.results[indexRnd].geometry.location.lat, lng: stuff.results[indexRnd].geometry.location.lng},
+			zoom: 17
+		});
+
+		var myLatLng = {lat: stuff.results[indexRnd].geometry.location.lat, lng: stuff.results[indexRnd].geometry.location.lng};
+
+		var marker = new google.maps.Marker({
+			position: myLatLng,
+			animation: google.maps.Animation.DROP,
+			map: map
+		});
+
+		marker.setMap(map);
+
+		console.log(stuff.results[indexRnd].place_id);
+
 		$.ajax({ 
 			type: "GET",
 			crossDomain:true,
 			dataType: "json",
-			url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[7].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
+			url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[indexRnd].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
 			success: function(data){
 				localStorage.setItem("daplace", JSON.stringify(data));
-				$('#web-link').attr("href", data.result.website);
+				console.log(data.result);
+				$('#address').html(data.result.adr_address);
+				$("#address").html($("#address").html().replace(',',''));
+				if(data.result.opening_hours){
+					$('#open').attr("open", data.result.opening_hours.open_now);
+				} else {
+					$('#open').attr("open", "unknown");
+				}
+				$('#website-link').attr("href", data.result.website);
+				$('#rating').text(data.result.rating);
+
+				if($('#open').attr("open")){
+					$('#open').text("Open");
+					$('#open').css({"background" : "#128c0e"});
+				} else if ($('#open').attr("closed") == null){
+					$('#open').text("Closed");
+					$('#open').css({"background" : "#e01a23"});
+				} else if ($('#open').attr("unknown")){
+					$('#open').text("Unknown");
+					$('#open').css({"background" : "#e01a23"});
+				}
 			}
 		});
+
+
 	});
 
     $('.another').click(function(){
@@ -206,15 +191,22 @@ $(document).ready(function () {
 				console.log(data.result);
 				$('#address').html(data.result.adr_address);
 				$("#address").html($("#address").html().replace(',',''));
-				$('#open').attr("open", data.result.opening_hours.open_now);
-				$('#website-link').attr("href", "https://www.google.co.uk/maps/dir/" + localStorage.lat + "," + localStorage.lng + "/" + stuff.results[indexRnd].geometry.location.lat + "," + stuff.results[indexRnd].geometry.location.lng + "/");
+				if(data.result.opening_hours){
+					$('#open').attr("open", data.result.opening_hours.open_now);
+				} else {
+					$('#open').attr("open", "unknown");
+				}
+				$('#website-link').attr("href", data.result.website);
 				$('#rating').text(data.result.rating);
 
 				if($('#open').attr("open")){
 					$('#open').text("Open");
 					$('#open').css({"background" : "#128c0e"});
-				} else {
+				} else if ($('#open').attr("closed") == null){
 					$('#open').text("Closed");
+					$('#open').css({"background" : "#e01a23"});
+				} else if ($('#open').attr("unknown")){
+					$('#open').text("Unknown");
 					$('#open').css({"background" : "#e01a23"});
 				}
 			}
@@ -231,26 +223,17 @@ $(document).ready(function () {
 	});
 
 	$('.drink').click(function(){
-		$(':mobile-pagecontainer').pagecontainer('change', '#pub-info-page', {
+		$(':mobile-pagecontainer').pagecontainer('change', '#pub-page', {
 			transition: 'slidedown',
 			changeHash: false
 		}, 5000);
 
 		var stuff = JSON.parse(localStorage.getItem("daplace"));
-		
-		var panorama;
 
-        panorama = new google.maps.StreetViewPanorama(
-            document.getElementById('street-view'),
-            {
-              position: {lat: stuff.result.geometry.location.lat, lng: stuff.result.geometry.location.lng},
-              pov: {heading: 165, pitch: 0},
-              zoom: 1
-            });
+		console.log(stuff.result.geometry.location.lat);
 
-		console.log(stuff);
-
-		$('#pub-title-main').text(stuff.result.name);
+		$('#on-your-way span').text(stuff.result.name);
+		$('#directions-button').attr("href", "https://www.google.co.uk/maps/dir/" + localStorage.lat + "," + localStorage.lng + "/" + stuff.result.geometry.location.lat + "," + stuff.result.geometry.location.lng + "/");
 		$('#review-title').text(stuff.result.reviews["0"].author_name);
 		$('#review-content').text(stuff.result.reviews["0"].text);
 		$('#review-profile-img').html("<img src='" + stuff.result.reviews["0"].profile_photo_url + "'>");
