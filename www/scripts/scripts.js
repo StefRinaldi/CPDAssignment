@@ -260,3 +260,10 @@ $(document).ready(function () {
 		}, 5000);
 	});
 });
+
+$(document).ready(function(){
+	$('.reviews').slick({
+		infinite: true,
+		arrows: false
+	});
+});
