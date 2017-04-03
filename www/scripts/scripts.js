@@ -139,24 +139,28 @@ $(document).ready(function () {
 				console.log(data.result);
 				$('#address').html(data.result.adr_address);
 				$("#address").html($("#address").html().replace(',',''));
+
+				$open = $('#open');
+
 				if(data.result.opening_hours){
-					$('#open').attr("open", data.result.opening_hours.open_now);
+					$open.attr("data-open", data.result.opening_hours.open_now);
 				} else {
-					$('#open').attr("open", "unknown");
+					$open.attr("data-open", "unknown");
 				}
+				
+				if($open.attr("data-open") == "true"){
+					$open.text("Open");
+					$open.css({"background" : "#128c0e"});
+				} else if ($open.attr("data-open") == "false"){
+					$open.text("Closed");
+					$open.css({"background" : "#e01a23"});
+				} else if ($open.attr("data-open") == "unknown"){
+					$open.text("Unknown");
+					$open.css({"background" : "#e01a23"});
+				}
+
 				$('#website-link').attr("href", data.result.website);
 				$('#rating').text(data.result.rating);
-
-				if($('#open').attr("open")){
-					$('#open').text("Open");
-					$('#open').css({"background" : "#128c0e"});
-				} else if ($('#open').attr("closed") == null){
-					$('#open').text("Closed");
-					$('#open').css({"background" : "#e01a23"});
-				} else if ($('#open').attr("unknown")){
-					$('#open').text("Unknown");
-					$('#open').css({"background" : "#e01a23"});
-				}
 
 				console.log(data.result.name);
 
@@ -165,6 +169,9 @@ $(document).ready(function () {
 				$.each(data.result.reviews, function(key, value){
 					$('.reviews').slick('slickAdd', "<div class='review'>" + value.text + "</div>");
 				});
+
+
+
 
 				
 			}
@@ -218,20 +225,20 @@ $(document).ready(function () {
 				$('#address').html(data.result.adr_address);
 				$("#address").html($("#address").html().replace(',',''));
 				if(data.result.opening_hours){
-					$('#open').attr("open", data.result.opening_hours.open_now);
+					$('#open').attr("data-open", data.result.opening_hours.open_now);
 				} else {
-					$('#open').attr("open", "unknown");
+					$('#open').attr("data-open", "unknown");
 				}
 				$('#website-link').attr("href", data.result.website);
 				$('#rating').text(data.result.rating);
 
-				if($('#open').attr("open")){
+				if($('#open').attr("data-open") == "true"){
 					$('#open').text("Open");
 					$('#open').css({"background" : "#128c0e"});
-				} else if ($('#open').attr("closed") == null){
+				} else if ($('#open').attr("data-open") == "false"){
 					$('#open').text("Closed");
 					$('#open').css({"background" : "#e01a23"});
-				} else if ($('#open').attr("unknown")){
+				} else if ($('#open').attr("data-open") == "unknown"){
 					$('#open').text("Unknown");
 					$('#open').css({"background" : "#e01a23"});
 				}
@@ -252,6 +259,7 @@ $(document).ready(function () {
 	$('#info-button').click(function(){
 		$('#info').slideToggle();
 
+		$('.reviews').get(0).slick.setPosition();
 		var text = $('#info-button').text();
     	$('#info-button').text(
         	text == "info" ? "cancel" : "info");
@@ -287,4 +295,5 @@ $(document).ready(function(){
 		infinite: true,
 		arrows: false
 	});
+
 });
