@@ -294,7 +294,8 @@ $(document).ready(function () {
 $(document).ready(function(){
 	$('.reviews').slick({
 		infinite: true,
-		arrows: false
+		arrows: false,
+		dots: true
 	});
 
 });
