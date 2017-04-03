@@ -92,9 +92,23 @@ $(document).ready(function () {
 			changeHash: false
 		}, 5000);
 
-		var indexRnd = Math.floor(Math.random() * 20);
+		$.ajax({ 
+			type: "GET",
+			crossDomain:true,
+			dataType: "json",
+			url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + localStorage.lat + "," + localStorage.lng + "&type=bar&rankby=distance&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
+			success: function(data){
+				console.log(data);
+				localStorage.setItem("placesData", JSON.stringify(data));
+				console.log(JSON.parse(localStorage.placesData));
+			}
+		});
 
 		var stuff = JSON.parse(localStorage.getItem("placesData"));
+
+		console.log(stuff);
+		
+		var indexRnd = Math.floor(Math.random() * 20);
 
 		$("#pub-title-map").text(stuff.results[indexRnd].name);
 		
