@@ -157,13 +157,23 @@ $(document).ready(function () {
 					$('#open').text("Unknown");
 					$('#open').css({"background" : "#e01a23"});
 				}
+
+				console.log(data.result.name);
+
+				$('.reviews').slick('removeSlide', null, null, true);
+
+				$.each(data.result.reviews, function(key, value){
+					$('.reviews').slick('slickAdd', "<div class='review'>" + value.text + "</div>");
+				});
+
+				
 			}
 		});
-
 
 	});
 
     $('.another').click(function(){
+
 
 		$(this).children("i").rotate({
 			angle:0,
@@ -195,6 +205,8 @@ $(document).ready(function () {
 
 		console.log(stuff.results[indexRnd].place_id);
 
+		$('.review').remove();
+
 		$.ajax({ 
 			type: "GET",
 			crossDomain:true,
@@ -223,6 +235,15 @@ $(document).ready(function () {
 					$('#open').text("Unknown");
 					$('#open').css({"background" : "#e01a23"});
 				}
+
+				console.log(data.result.name);
+
+
+				$('.reviews').slick('removeSlide', null, null, true);
+
+				$.each(data.result.reviews, function(key, value){
+					$('.reviews').slick('slickAdd', "<div class='review'>" + value.text + "</div>");
+				});
 			}
 		});
 
