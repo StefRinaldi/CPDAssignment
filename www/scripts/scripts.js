@@ -167,7 +167,7 @@ $(document).ready(function () {
 				$('.reviews').slick('removeSlide', null, null, true);
 
 				$.each(data.result.reviews, function(key, value){
-					$('.reviews').slick('slickAdd', "<div class='review'>" + value.text + "</div>");
+					$('.reviews').slick('slickAdd', "<div class='review'><img src='" + value.profile_photo_url + "'/>" + value.text + "</div>");
 				});
 
 
@@ -230,6 +230,7 @@ $(document).ready(function () {
 					$('#open').attr("data-open", "unknown");
 				}
 				$('#website-link').attr("href", data.result.website);
+				$('#phone-link').attr("href", "tel:"+data.result.formatted_phone_number);
 				$('#rating').text(data.result.rating);
 
 				if($('#open').attr("data-open") == "true"){
@@ -249,7 +250,7 @@ $(document).ready(function () {
 				$('.reviews').slick('removeSlide', null, null, true);
 
 				$.each(data.result.reviews, function(key, value){
-					$('.reviews').slick('slickAdd', "<div class='review'>" + value.text + "</div>");
+					$('.reviews').slick('slickAdd', "<div class='review'><img height='40em' src='" + value.profile_photo_url + "'/>" + value.text + "</div>");
 				});
 			}
 		});
