@@ -67,11 +67,10 @@ $(document).ready(function(){
 	pick_pub();
 
 	if(localStorage.getItem("currentCrawl") == null){
-		localStorage.setItem("currentCrawl", JSON.stringify(currentCrawl));
+		$("#start-new").hide();
+		$("#continue-old").hide();
 	} else {
-		var currentCrawl = JSON.parse(localStorage.getItem("currentCrawl"));
-
-		localStorage.setItem("currentCrawl", JSON.stringify(currentCrawl));
+		$("#start-playing").hide();
 	}
 
 	$('.reviews').slick({
@@ -84,6 +83,17 @@ $(document).ready(function(){
 			transition: 'slidedown',
 			changeHash: false
 		}, 5000);
+
+		localStorage.removeItem("currentCrawl");
+	});
+
+	$('#start-new').click(function(){
+		$(':mobile-pagecontainer').pagecontainer('change', '#main-page', {
+			transition: 'slidedown',
+			changeHash: false
+		}, 5000);
+
+		localStorage.removeItem("currentCrawl");
 	});
 
 	$('#continue-old').click(function(){
@@ -91,8 +101,6 @@ $(document).ready(function(){
 			transition: 'slidedown',
 			changeHash: false
 		}, 5000);
-
-		localStorage.removeItem("currentCrawl");
 	});
 
     $('.another').click(function(){
@@ -152,7 +160,6 @@ $(document).ready(function(){
 		]
 
 		console.log(newPub);
-		console.log(localStorage.getItem("currentCrawl"));
 
 		if(localStorage.getItem("currentCrawl") == null){
 			var currentCrawl = [];
@@ -253,14 +260,20 @@ function pick_pub() {
 				localStorage.setItem("currentPub", JSON.stringify(data));
 				console.log(data.result);
 				$('#address').html(data.result.adr_address);
-				$("#address").html($("#address").html().replace(',',''));
 				if(data.result.opening_hours){
 					$('#open').attr("data-open", data.result.opening_hours.open_now);
 				} else {
 					$('#open').attr("data-open", "unknown");
 				}
 				$('#website-link').attr("href", data.result.website);
-				$('#phone-link').attr("href", "tel:"+data.result.formatted_phone_number);
+
+				if (data.result.formatted_phone_number) {
+					$('#phone-button').slideDown();
+					$('#phone-link').attr("href", "tel:"+data.result.formatted_phone_number);
+				} else {
+					$("#phone-button").slideUp();
+				}
+
 				$('#rating').text(data.result.rating);
 
 				if($('#open').attr("data-open") == "true"){
@@ -280,7 +293,16 @@ function pick_pub() {
 				$('.reviews').slick('removeSlide', null, null, true);
 
 				$.each(data.result.reviews, function(key, value){
-					$('.reviews').slick('slickAdd', "<div class='review'><img height='40em' src='" + value.profile_photo_url + "'/>" + value.text + "</div>");
+					$('.reviews').slick('slickAdd', 
+						"<div class='review'>\
+							<div class='review-info'>\
+								<span class='author-image'><img height='40em' src='" + value.profile_photo_url + "'/></span>" +
+								"<span class='author-name'>" + value.author_name + "</span>" +
+								"<span class='review-rating'>" + value.rating + "</span><span class='review-star'><i class='material-icons'>grade</i></span>" +
+								"<div class='review-text'>" + value.text + "</div>\
+							</div>\
+						</div>"
+					);
 				});
 			}
 		});
