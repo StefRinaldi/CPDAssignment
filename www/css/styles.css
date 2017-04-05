@@ -17,12 +17,35 @@ a {
 	color: #fff;
 }
 
+#start-new {
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 6em;
+	font-size: 1.3em;
+	padding: 10px 0px;
+	background: #555;
+	color: #ffc61a;
+}
+
+#continue-old {
+	position: absolute;
+	bottom: 0;
+	text-align: center;
+	width: 100%;
+	margin-bottom: 6em;
+	font-size: 2em;
+	padding: 20px 0px;
+	background: #ffc61a;
+}
+
 #start-playing {
 	position: absolute;
 	bottom: 0;
 	text-align: center;
 	width: 100%;
-	margin-bottom: 150px;
+	margin-bottom: 6em;
 	font-size: 2em;
 	padding: 20px 0px;
 	background: #ffc61a;

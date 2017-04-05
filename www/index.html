@@ -23,10 +23,11 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
 
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPWpzJPn5qAp3BCBUTkIErJCfR_ODBiWQ"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPWpzJPn5qAp3BCBUTkIErJCfR_ODBiWQ"></script>
 
 	<script type="text/javascript" src="http://beneposto.pl/jqueryrotate/js/jQueryRotateCompressed.js"></script>
 	<script type="text/javascript" src="scripts/slick.min.js"></script>
+
 	<script src="scripts/scripts.js"></script>
 </head>
 <body>
@@ -34,6 +35,8 @@
 	<div data-role="page" id="start-page">
 		<h1>PubPicker</h1>
 		<div id="start-playing">Start New Crawl</div>
+		<div id="continue-old">Continue Current Crawl</div>
+		<div id="start-new">Start New Crawl</div>
 	</div>
 
 	<div data-role="page" id="main-page">
@@ -99,6 +102,7 @@
 		<div id="on-your-way">You're on your way to...<span>the pub!</span></div>
 	
 		<a id="directions-button" target="_blank"><i class="material-icons">directions</i></a>
+		<div id="done-button"><i class="material-icons">done</i></div>
 
 <!-- 		<div id="review-title">Test Title</div>
 		<div id="review-content">Test content.</div>
