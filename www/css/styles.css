@@ -58,6 +58,10 @@ a {
 	position: absolute;
 }
 
+#map * {
+    overflow:visible;
+}
+
 #mini-info {
 	width: 100%;
 	height: 3em;

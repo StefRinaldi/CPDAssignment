@@ -63,8 +63,32 @@ function onDeviceReady() {
 
 $(document).ready(function(){
 	get_location();
-	get_pub_data();
-	pick_pub();
+
+	$( ":mobile-pagecontainer" ).on( "pagecontainerchange", function( event, ui ) {
+		map = new google.maps.Map(document.getElementById('map'), {
+			zoom: 17,
+			center: {lat: parseFloat(localStorage.lat), lng: parseFloat(localStorage.lng)}
+		});
+
+		myMarker = new google.maps.Marker({
+			position: {lat: parseFloat(localStorage.lat), lng: parseFloat(localStorage.lng)},
+			animation: google.maps.Animation.DROP,
+			map: map
+		});
+
+		map.setCenter(pubLatLng);
+
+		marker = new google.maps.Marker({
+		position: pubLatLng,
+		animation: google.maps.Animation.BOUNCE,
+		map: map
+		});
+
+		marker.setMap(map);
+
+		myMarker.setMap(map);
+	} );
+	
 
 	if(localStorage.getItem("currentCrawl") == null){
 		$("#start-new").hide();
@@ -84,7 +108,11 @@ $(document).ready(function(){
 			changeHash: false
 		}, 5000);
 
+		get_pub_data();
+		pick_pub();
+
 		localStorage.removeItem("currentCrawl");
+
 	});
 
 	$('#start-new').click(function(){
@@ -92,6 +120,9 @@ $(document).ready(function(){
 			transition: 'slidedown',
 			changeHash: false
 		}, 5000);
+
+		get_pub_data();
+		pick_pub();
 
 		localStorage.removeItem("currentCrawl");
 	});
@@ -101,14 +132,22 @@ $(document).ready(function(){
 			transition: 'slidedown',
 			changeHash: false
 		}, 5000);
+
+		get_pub_data();
+		pick_pub();
+
 	});
 
     $('.another').click(function(){
+    	
 		$(this).children("i").rotate({
 			angle:0,
 			animateTo:360
 		});
+
 		marker.setMap(null);
+		map.setCenter(pubLatLng);
+		map.setZoom(17);
 		pick_pub();
 	});
 
@@ -141,6 +180,9 @@ $(document).ready(function(){
 			transition: 'slidedown',
 			changeHash: false
 		}, 5000);
+
+		get_pub_data();
+		pick_pub();
 	});
 
 	$('#done-button').click(function(){
@@ -209,13 +251,10 @@ function get_location(){
 	  console.warn(`ERROR(${err.code}): ${err.message}`);
 	};
 
-	
-
 	navigator.geolocation.getCurrentPosition(success, error, options);
 }
 
 function get_pub_data(){
-	console.log("test");
 	$.ajax({ 
 		type: "GET",
 		crossDomain:true,
@@ -227,91 +266,91 @@ function get_pub_data(){
 			console.log(JSON.parse(localStorage.placesData));
 		}
 	});
-	map = new google.maps.Map(document.getElementById('map'), {
-		center: {lat: 53.230688, lng: -0.5405789999999999},
-		zoom: 17
-	});
+
 }
 
 function pick_pub() {
 	$('#pub-title-map').slideUp(200).slideDown(200);
 
-		var indexRnd = Math.floor(Math.random() * 20);
+	var indexRnd = Math.floor(Math.random() * 20);
 
-		var stuff = JSON.parse(localStorage.getItem("placesData"));
+	var stuff = JSON.parse(localStorage.getItem("placesData"));
 
-		$("#pub-title-map").text(stuff.results[indexRnd].name);
+	$("#pub-title-map").text(stuff.results[indexRnd].name);
 
-		myLatLng = {lat: stuff.results[indexRnd].geometry.location.lat, lng: stuff.results[indexRnd].geometry.location.lng};
+	pubLatLng = {lat: stuff.results[indexRnd].geometry.location.lat, lng: stuff.results[indexRnd].geometry.location.lng};
 
-		map.setCenter(myLatLng);
-		
+	map.setCenter(pubLatLng);
+	map.setZoom(17);
 
-		marker = new google.maps.Marker({
-			position: myLatLng,
-			animation: google.maps.Animation.BOUNCE,
-			map: map
-		});
+	marker = new google.maps.Marker({
+		position: pubLatLng,
+		animation: google.maps.Animation.BOUNCE,
+		map: map
+	});
 
-		marker.setMap(map);
+	marker.setMap(map);
 
-		console.log(stuff.results[indexRnd].place_id);
+	console.log(stuff.results[indexRnd].place_id);
 
-		$('.review').remove();
+	$('.review').remove();
 
-		$.ajax({ 
-			type: "GET",
-			crossDomain:true,
-			dataType: "json",
-			url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[indexRnd].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
-			success: function(data){
-				localStorage.setItem("currentPub", JSON.stringify(data));
-				console.log(data.result);
-				$('#address').html(data.result.adr_address);
-				if(data.result.opening_hours){
-					$('#open').attr("data-open", data.result.opening_hours.open_now);
-				} else {
-					$('#open').attr("data-open", "unknown");
-				}
-				$('#website-link').attr("href", data.result.website);
-
-				if (data.result.formatted_phone_number) {
-					$('#phone-button').slideDown();
-					$('#phone-link').attr("href", "tel:"+data.result.formatted_phone_number);
-				} else {
-					$("#phone-button").slideUp();
-				}
-
-				$('#rating').text(data.result.rating);
-
-				if($('#open').attr("data-open") == "true"){
-					$('#open').text("Open");
-					$('#open').css({"background" : "#128c0e"});
-				} else if ($('#open').attr("data-open") == "false"){
-					$('#open').text("Closed");
-					$('#open').css({"background" : "#e01a23"});
-				} else if ($('#open').attr("data-open") == "unknown"){
-					$('#open').text("Unknown");
-					$('#open').css({"background" : "#e01a23"});
-				}
-
-				console.log(data.result.name);
-
-
-				$('.reviews').slick('removeSlide', null, null, true);
-
-				$.each(data.result.reviews, function(key, value){
-					$('.reviews').slick('slickAdd', 
-						"<div class='review'>\
-							<div class='review-info'>\
-								<span class='author-image'><img height='40em' src='" + value.profile_photo_url + "'/></span>" +
-								"<span class='author-name'>" + value.author_name + "</span>" +
-								"<span class='review-rating'>" + value.rating + "</span><span class='review-star'><i class='material-icons'>grade</i></span>" +
-								"<div class='review-text'>" + value.text + "</div>\
-							</div>\
-						</div>"
-					);
-				});
+	$.ajax({ 
+		type: "GET",
+		crossDomain:true,
+		dataType: "json",
+		url: "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + stuff.results[indexRnd].place_id + "&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
+		success: function(data){
+			localStorage.setItem("currentPub", JSON.stringify(data));
+			console.log(data.result);
+			$('#address').html(data.result.adr_address);
+			if(data.result.opening_hours){
+				$('#open').attr("data-open", data.result.opening_hours.open_now);
+			} else {
+				$('#open').attr("data-open", "unknown");
 			}
-		});
+			$('#website-link').attr("href", data.result.website);
+
+			if (data.result.formatted_phone_number) {
+				$('#phone-button').slideDown();
+				$('#phone-link').attr("href", "tel:"+data.result.formatted_phone_number);
+			} else {
+				$("#phone-button").slideUp();
+			}
+
+			$('#rating').text(data.result.rating);
+
+			if($('#open').attr("data-open") == "true"){
+				$('#open').text("Open");
+				$('#open').css({"background" : "#128c0e"});
+			} else if ($('#open').attr("data-open") == "false"){
+				$('#open').text("Closed");
+				$('#open').css({"background" : "#e01a23"});
+			} else if ($('#open').attr("data-open") == "unknown"){
+				$('#open').text("Unknown");
+				$('#open').css({"background" : "#e01a23"});
+			}
+
+			console.log(data.result.name);
+
+
+			$('.reviews').slick('removeSlide', null, null, true);
+
+			$.each(data.result.reviews, function(key, value){
+				$('.reviews').slick('slickAdd', 
+					"<div class='review'>\
+						<div class='review-info'>\
+							<span class='author-image'><img height='40em' src='" + value.profile_photo_url + "'/></span>" +
+							"<span class='author-name'>" + value.author_name + "</span>" +
+							"<span class='review-rating'>" + value.rating + "</span><span class='review-star'><i class='material-icons'>grade</i></span>" +
+							"<div class='review-text'>" + value.text + "</div>\
+						</div>\
+					</div>"
+				);
+			});
+		}
+	});
+
+
+	console.log($("#main-page").css("display"));
 }
