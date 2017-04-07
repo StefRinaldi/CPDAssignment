@@ -108,7 +108,7 @@ $(document).ready(function(){
 			angle:0,
 			animateTo:360
 		});
-
+		marker.setMap(null);
 		pick_pub();
 	});
 
@@ -192,6 +192,11 @@ function get_location(){
 		$('#lat').text(crd.latitude);
 		$('#lng').text(crd.longitude);
 
+		map = new google.maps.Map(document.getElementById('map'), {
+			center: {lat: crd.latitude, lng: crd.longitude},
+			zoom: 17
+		});
+
 		console.log('Your current position is:');
 		console.log(`Latitude : ${crd.latitude}`);
 		console.log(`Longitude: ${crd.longitude}`);
@@ -204,10 +209,13 @@ function get_location(){
 	  console.warn(`ERROR(${err.code}): ${err.message}`);
 	};
 
+	
+
 	navigator.geolocation.getCurrentPosition(success, error, options);
 }
 
 function get_pub_data(){
+	console.log("test");
 	$.ajax({ 
 		type: "GET",
 		crossDomain:true,
@@ -218,8 +226,10 @@ function get_pub_data(){
 			localStorage.setItem("placesData", JSON.stringify(data));
 			console.log(JSON.parse(localStorage.placesData));
 		}
-
-
+	});
+	map = new google.maps.Map(document.getElementById('map'), {
+		center: {lat: 53.230688, lng: -0.5405789999999999},
+		zoom: 17
 	});
 }
 
@@ -231,17 +241,15 @@ function pick_pub() {
 		var stuff = JSON.parse(localStorage.getItem("placesData"));
 
 		$("#pub-title-map").text(stuff.results[indexRnd].name);
+
+		myLatLng = {lat: stuff.results[indexRnd].geometry.location.lat, lng: stuff.results[indexRnd].geometry.location.lng};
+
+		map.setCenter(myLatLng);
 		
-		map = new google.maps.Map(document.getElementById('map'), {
-			center: {lat: stuff.results[indexRnd].geometry.location.lat, lng: stuff.results[indexRnd].geometry.location.lng},
-			zoom: 17
-		});
 
-		var myLatLng = {lat: stuff.results[indexRnd].geometry.location.lat, lng: stuff.results[indexRnd].geometry.location.lng};
-
-		var marker = new google.maps.Marker({
+		marker = new google.maps.Marker({
 			position: myLatLng,
-			animation: google.maps.Animation.DROP,
+			animation: google.maps.Animation.BOUNCE,
 			map: map
 		});
 
