@@ -166,9 +166,18 @@ box-shadow: 0px 0px 30px 3px rgba(0,0,0,0.5);
 	width: 100%;
 }
 
-#back {
+.back {
 	color: #131313;
 	background: #ffc61a;
+	text-align: center;
+	padding: 10px 0;
+	font-weight: 700;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.save {
+	color: #fff;
+	background: green;
 	text-align: center;
 	padding: 10px 0;
 	font-weight: 700;
@@ -371,4 +380,38 @@ span.author-name {
 	position: relative;
 	font-size: 2em;
 	line-height: 1.7em;
+}
+
+h3 {
+	color: #FFC61A;
+	padding-left: 0.4em;
+	font-weight: 700;
+	font-size: 2em;
+}
+
+div.ui-slider {
+	padding: 1em;
+}
+
+.ui-btn {
+	background: #FFC61A;
+	-webkit-border-radius: 99px;
+	-moz-border-radius: 99px;
+	border-radius: 99px;
+}
+
+.ui-slider-track {
+	border: none;
+	background: #ccc;
+}
+
+.ui-slider-bg {
+	background: #FFC61A;
+}
+
+#slider-fill {
+	background: none;
+	border: none;
+	color: #ffffff;
+	border-bottom: 1px solid #FFC61A;
 }

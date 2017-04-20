@@ -87,6 +87,7 @@ $(document).ready(function(){
 		marker.setMap(map);
 
 		myMarker.setMap(map);
+
 	} );
 	
 
@@ -125,6 +126,18 @@ $(document).ready(function(){
 		pick_pub();
 
 		localStorage.removeItem("currentCrawl");
+	});
+
+	$('.settings').click(function(){
+		$(':mobile-pagecontainer').pagecontainer('change', '#settings-page', {
+			transition: 'slidedown',
+			changeHash: false
+		}, 5000);
+
+		get_pub_data();
+		pick_pub();
+
+		$("input[type=range]").val(localStorage.radius/1600).slider("refresh");
 	});
 
 	$('#continue-old').click(function(){
@@ -175,7 +188,24 @@ $(document).ready(function(){
 		$('#review-profile-img').html("<img src='" + stuff.result.reviews["0"].profile_photo_url + "'>");
 	});
 
-	$('#back').click(function(){
+	$('.back').click(function(){
+		$(':mobile-pagecontainer').pagecontainer('change', '#main-page', {
+			transition: 'slidedown',
+			changeHash: false
+		}, 5000);
+
+		get_pub_data();
+		pick_pub();
+	});
+
+	$('.save').click(function(){
+
+		radius = $('#slider-fill').val()*1600;
+
+		console.log(radius);
+
+		localStorage.setItem("radius", radius);
+
 		$(':mobile-pagecontainer').pagecontainer('change', '#main-page', {
 			transition: 'slidedown',
 			changeHash: false
@@ -255,11 +285,22 @@ function get_location(){
 }
 
 function get_pub_data(){
+
+	console.log(localStorage.getItem("radius")==null)
+
+	if (localStorage.getItem("radius")==null) 
+		radius = 1600;
+	else
+		radius = localStorage.getItem("radius");
+	
+	console.log(radius);
+	console.log(localStorage.getItem("radius"));
+
 	$.ajax({ 
 		type: "GET",
 		crossDomain:true,
 		dataType: "json",
-		url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + localStorage.lat + "," + localStorage.lng + "&type=bar&rankby=distance&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
+		url: "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + localStorage.lat + "," + localStorage.lng + "&radius=" + radius + "&type=bar&key=AIzaSyCzkA7RIl14ppr-tf6jBoPVDRuU7jBF_W0",
 		success: function(data){
 			console.log(data);
 			localStorage.setItem("placesData", JSON.stringify(data));
