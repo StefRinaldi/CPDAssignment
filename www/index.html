@@ -116,9 +116,9 @@
 
 		<h3>Settings</h3>
 
-		<div class="view-crawl">View Current Crawl</div>
+		<div class="settings-but view-crawl">View Current Crawl > </div>
 		
-		<label for="slider-fill">Search Radius (Miles):</label>
+		<label class="settings-but" for="slider-fill">Search Radius (Miles):</label>
 		<input type="range" name="slider-fill" id="slider-fill" value="5" min="1" max="20" data-highlight="true">
 
 		<div class="footer">
@@ -127,6 +127,22 @@
 			</div>
 			<div class="save" style="width: 50%;float: left;">
 				Save
+			</div>
+		</div>
+
+	</div>
+
+	<div data-role="page" id="crawl-page">
+
+		<h3>Current Crawl</h3>
+
+		<div id="crawl-list">
+			
+		</div>
+
+		<div class="footer">
+			<div class="back">
+				Back
 			</div>
 		</div>
 

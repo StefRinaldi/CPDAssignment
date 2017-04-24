@@ -415,3 +415,25 @@ div.ui-slider {
 	color: #ffffff;
 	border-bottom: 1px solid #FFC61A;
 }
+
+.settings-but {
+	background: #FFC61A;
+	padding: 1em;
+	font-weight: 700;
+	color: #131313;
+	margin-bottom: 1em;
+}
+
+.pub-list-item {
+	padding: 1em;
+	margin-bottom: 1em;
+	background: #666;
+}
+
+span.pub-list-time{
+	float: right;
+}
+
+span.pub-list-directions{
+	float: right;
+}

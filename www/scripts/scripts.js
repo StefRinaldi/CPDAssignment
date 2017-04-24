@@ -188,6 +188,25 @@ $(document).ready(function(){
 		$('#review-profile-img').html("<img src='" + stuff.result.reviews["0"].profile_photo_url + "'>");
 	});
 
+	$('.view-crawl').click(function(){
+		$(':mobile-pagecontainer').pagecontainer('change', '#crawl-page', {
+			transition: 'slidedown',
+			changeHash: false
+		}, 5000);
+
+		var stuff = JSON.parse(localStorage.getItem("currentCrawl"));
+
+		console.log(stuff);
+
+		$('#crawl-list').empty();
+
+		$.each(stuff, function(key, value){
+			$('#crawl-list').append(
+				"<div class='pub-list-item'>" + value[0] + "<a target='_blank' href='" + value[2] + "'><span class='pub-list-directions'><i class='material-icons'>directions</i></span></a><span class='pub-list-time'>" + value[3] + "</span></div>"
+			);
+		});
+	});
+
 	$('.back').click(function(){
 		$(':mobile-pagecontainer').pagecontainer('change', '#main-page', {
 			transition: 'slidedown',
@@ -224,10 +243,12 @@ $(document).ready(function(){
 		var stuff = JSON.parse(localStorage.getItem("currentPub"));
 
 		var currTime = new Date().toLocaleString();
+		var directions = "https://www.google.co.uk/maps/dir/" + localStorage.lat + "," + localStorage.lng + "/" + stuff.result.geometry.location.lat + "," + stuff.result.geometry.location.lng + "/";
 
 		var newPub = [
 			stuff.result.name,
 			stuff.result.place_id,
+			directions,
 			currTime
 		]
 
