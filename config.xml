@@ -6,9 +6,9 @@
     version     = "1.0.2" >
     
     <!-- versionCode is optional and Android only -->
-    <name>CPDApp</name>
+    <name>PubPicker</name>
     <description>
-        Example of a hybrid geolaction app.
+        Picks pubs for you.
     </description> 
     <author href="website" email="your email">
         Stefano Rinaldi
