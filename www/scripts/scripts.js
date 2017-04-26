@@ -202,7 +202,7 @@ $(document).ready(function(){
 
 		$.each(stuff, function(key, value){
 			$('#crawl-list').append(
-				"<div class='pub-list-item'>" + value[0] + "<a target='_blank' href='" + value[2] + "'><span class='pub-list-directions'><i class='material-icons'>directions</i></span></a><span class='pub-list-time'>" + value[3] + "</span></div>"
+				"<div class='pub-list-item'>" + value[0] + "<br><a target='_blank' href='" + value[2] + "'><span class='pub-list-directions'><i class='material-icons'>directions</i></span></a><span class='pub-list-time'>" + value[3] + "</span></div>"
 			);
 		});
 	});

@@ -428,12 +428,13 @@ div.ui-slider {
 	padding: 1em;
 	margin-bottom: 1em;
 	background: #666;
+	height: 2.1em;
 }
 
 span.pub-list-time{
-	float: right;
+	float: left;
 }
 
 span.pub-list-directions{
-	float: right;
+	float: left;
 }
