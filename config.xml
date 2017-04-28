@@ -73,10 +73,10 @@
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins
 	THE BELOW IS AN EXAMPLE OF EXTRA SETTINGS FOR IOS1O SECURITY -->
-    <!--<plugin name="phonegap-plugin-barcodescanner" >
-	<variable name="CAMERA_USAGE_DESCRIPTION" value="To scan barcodes" />
+    <plugin name="cordova-plugin-geolocation" >
+	   <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To get lcoation" />
 	</plugin>
--->
+
     <!-- Third party plugins -->
  
 
