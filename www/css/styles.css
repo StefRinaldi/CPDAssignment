@@ -344,6 +344,7 @@ span.author-name {
 }
 
 #directions-button i {
+	padding-top: 0.5em;
 	color: #ffffff;
 	width: 2em;
 	height: 2em;
@@ -437,4 +438,17 @@ span.pub-list-time{
 
 span.pub-list-directions{
 	float: left;
+}
+
+#pub-page {
+	text-align: center;
+}
+
+#done-button {
+	text-align: center;
+	width: 100%;
+	margin-bottom: 6em;
+	font-size: 2em;
+	padding: 20px 0px;
+	background: #ffc61a;
 }
